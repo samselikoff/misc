@@ -36,7 +36,7 @@ The CSS class names we use look like this:
         <span class="nmbl-docs-page-header__title-slim">{{slimTitle}}</span>
         <span class='nmbl-docs-page-header__title-heavy'>{{title}}</span>
       </h1>
-      <p class='byline'>{{byline}}</p>
+      <p class='nbml-docs-page-header__byline'>{{byline}}</p>
     </div>
 
     <div class="nmbl-docs-page-header__links">
@@ -71,6 +71,12 @@ The CSS class names we use look like this:
   
   &__title-slim {
     font-size: 3.5em;
+    margin-bottom: 0;
+  }
+
+  &__byline {
+    font-size: 1.5em;
+    line-height: 1;
     margin-bottom: 0;
   }
   
