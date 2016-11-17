@@ -39,7 +39,7 @@ The CSS class names we use look like this:
       <p class='byline'>{{byline}}</p>
     </div>
 
-    <div class="links">
+    <div class="nmbl-docs-page-header__links">
       {{link-to 'Home' 'index'}}
       {{link-to 'Components' 'components'}}
     </div>
@@ -72,6 +72,10 @@ The CSS class names we use look like this:
   &__title-slim {
     font-size: 3.5em;
     margin-bottom: 0;
+  }
+  
+  &__links {
+    margin-left: 0;
   }
 }
 ```
