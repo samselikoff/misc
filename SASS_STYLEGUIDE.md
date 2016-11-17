@@ -13,135 +13,65 @@ front-end methodology:
 The CSS class names we use look like this:
 
 ```css
-.Block {}
-.Block__element {}
-.Block--modifier {}
+.block {}
+.block__element {}
+.block--modifier {}
 ```
 
-* Block names always start with a capital letter.
-* Two underscores are used to adjoin an element.
-* Two hyphens are used to adjoin a modifier.
-* A single hyphen (spinal case) is used to separate multiple words
-  within block, element, and modifier names.
-  e.g., `Block-name__element-name--modifier-name`
-* Elements may have their own modifiers.
-  e.g., `Block__element--modifier`
+* Two underscores for elements
+* Two hyphens for modifiers
+* One hyphen for multi-word names
 
-### Example
+## Example
 
-Here is a trivial example demonstrating how BEM-like names might be
-used in CSS and applied in HTML:
+```hbs
+<div class="row">
+  <div class="columns small-12">
+    <div>
+      nmbl-charts
+    </div>
 
-```css
-.Figure {}
-.Figure__image {}
-.Figure__caption {}
-.Figure--alt{}
+    <div class="nmbl-docs-page-header__title-wrapper">
+      <h1 class='nmbl-docs-page-header__title'>
+        <span class="nmbl-docs-page-header__title-slim">{{slimTitle}}</span>
+        <span class='nmbl-docs-page-header__title-heavy'>{{title}}</span>
+      </h1>
+      <p class='byline'>{{byline}}</p>
+    </div>
+
+    <div class="links">
+      {{link-to 'Home' 'index'}}
+      {{link-to 'Components' 'components'}}
+    </div>
+  </div>
+</div>
 ```
-
-```html
-<figure class="Figure Figure--alt">
-  <img class="Figure__image" src="…" alt="…">
-
-  <figcaption class="Figure__caption">
-    …
-  </figcaption>
-</figure>
-```
-
-## Utility Classes
-
-Though it's best to stick with BEM in most cases to avoid style conflicts, gloabal utilty classes can be helpful for small bits of style that will be used repeatedly.
-
-* Utility classes always start with a lowercase letter (to distinguish them from BEM classes).
-* Use caution when editing utility classes. They are not scoped like BEM classes and will affect the whole app.
-
-```css
-.capitalize {
-  text-transform: uppercase;
-}
-```
-
-## "Mobile first" media query arrangements
-
-Base styles should be written for the smallest screens. Media queries should be used to introduce modified styles for progressively larger screens:
 
 ```sass
-.Block {
-  padding: 10px;
+.nmbl-docs-page-header {
+  background-image: linear-gradient(153deg, #191919 0%, #2D6101 50%, #A0E32D 100%);
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);
+  padding: 20px 0;
+  color: rgba(255,255,255,0.9);
 
-  @media all and (min-width: 600px) {
-    padding: 20px;
+  &__title-wrapper {
+    padding: 20px 0 40px;
   }
-
-  @media all and (min-width: 900px) {
-    padding: 40px;
+  
+  &__title {
+    font-size: 3.5em;
+    margin-bottom: 0;
   }
-
-  @media all and (min-width: 1200px) {
-    padding: 60px;
+  
+  &__title-heavy {
+    font-weight: bold;
+    color: #6cd61a;
+    text-shadow: 3px 2px 4px rgba(0, 0, 0, 0.25);
   }
-}
-```
-
-## Organize code by class, not breakpoint
-
-In general, organize your code by classes, and put media queries within those classes:
-
-```sass
-.Block {
-  padding: 10px;
-
-  @include respond-to(768px) {
-    padding: 20px;
+  
+  &__title-slim {
+    font-size: 3.5em;
+    margin-bottom: 0;
   }
 }
 ```
-
-For dramatic layout changes, it may be more appropriate to organize styles primarily by breakpoint:
-
-```sass
-.Block {
-  padding: 10px;
-}
-
-.Block__element {
-  margin: 10px;
-}
-
-@include respond-to(768px) {
-  .Block {
-    position: absolute;
-    top: 0;
-    left: 20px;
-  }
-
-  .Block__element {
-    visibility: hidden;
-  }
-}
-```
-
-Never use selectors inside a nested media query (e.g., never declare a class inside a media query inside a class):
-
-```sass
-
-.Block {
-  padding: 10px;
-
-  @include respond-to(768px) {
-    // don't do this!
-    .button {
-      padding: 20px;
-    }
-  }
-}
-```
-
-Be mindful that every media query costs ~30 bytes in the output: if you're using a lot of media queries, please refactor your Sass to the breakpoint-first style or layer on additional post-processing to consolidate media queries.
-
-## Sources
-
-The guidelines found in this document were adapted from the following sources:
-
-* Harry Roberts' [CSS Guidelines](http://cssguidelin.es/): BEM-like class name notation
